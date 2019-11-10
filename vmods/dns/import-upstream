@@ -1,5 +1,5 @@
 #!/bin/bash
-GITROOT=../foreign/knq-dns
+GITROOT=../../foreign/knq-dns
 
 echo -e "\n/* Automatically modified by import-source, manual changes may be lost. */\n\n" > vmod_dns.c
 sed \

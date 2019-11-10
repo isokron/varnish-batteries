@@ -1,5 +1,5 @@
 #!/bin/bash
-GITROOT=../foreign/vs-curl
+GITROOT=../../foreign/vs-curl
 
 echo -e "\n/* Automatically modified by import-source, manual changes may be lost. */\n\n" > vmod_curl.c
 sed \
