@@ -1,0 +1,28 @@
+
+/* Automatically modified by import-source, manual changes may be lost. */
+
+
+varnishtest "Test libvmod-dns resolve"
+
+server s1 {
+	rxreq
+	txresp
+} -start
+
+varnish v1 -vcl+backend {
+	import dns from "${topbuild}/lib/libvmod_dns/.libs/";
+
+	sub vcl_deliver {
+		set resp.http.r1 = dns.resolve("all-systems.mcast.net");
+		set resp.http.r2 = dns.resolve("ipv6.google.com");
+		set resp.http.r3 = dns.resolve("foo.bar");
+	}
+} -start
+
+client c1 {
+	txreq
+	rxresp
+	expect resp.http.r1 == "224.0.0.1"
+	expect resp.http.r2 ~ "[0-9a-f]+:[0-9a-f]+:[0-9a-f]+:[0-9a-f]+::[0-9a-f]+"
+	expect resp.http.r3 == ""
+} -run

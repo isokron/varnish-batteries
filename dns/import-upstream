@@ -1,0 +1,25 @@
+#!/bin/bash
+GITROOT=../foreign/knq-dns
+
+echo -e "\n/* Automatically modified by import-source, manual changes may be lost. */\n\n" > vmod_dns.c
+sed \
+	-e 's|#include "vmod_config.h"|#include "cache/cache.h"|g' \
+	-e 's|#include "vcc_dns_if.h"|#include "vmod_dns_if.h"|g' \
+	$GITROOT/src/vmod_dns.c >> vmod_dns.c
+
+
+for vtcfile in `find $GITROOT/src/vtc/ -name \*.vtc`; do
+	fn_new=$(basename $vtcfile)
+	# We do not have valid_host() in 6.0.
+	if [ "$fn_new" = "vmod_dns_valid_host_host.vtc" ]; then
+		continue
+	fi
+	if [ "$fn_new" = "vmod_dns_valid_host_ip.vtc" ]; then
+		continue
+	fi
+
+	echo -e "\n/* Automatically modified by import-source, manual changes may be lost. */\n\n" > "tests/$fn_new"
+	sed \
+		-e 's|import dns;|import dns from "${topbuild}/lib/libvmod_dns/.libs/";|' \
+		$vtcfile >> "tests/$(basename $vtcfile)"
+done

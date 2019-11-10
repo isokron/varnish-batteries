@@ -37,3 +37,5 @@ CMakeCache.txt
 Testing/
 CMakeFiles/
 **.cmake
+#
+**.so

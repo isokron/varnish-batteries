@@ -4,7 +4,8 @@ option(VARNISH_PLUS "Build with Varnish plus" OFF)
 set(VARNISH_DIR "/usr" CACHE STRING "Varnish installation")
 
 # compiler flags
-set(CMAKE_C_FLAGS "-Wall -Wextra -std=c11 -g -O2")
+#set(CMAKE_C_FLAGS "-Wall -Wextra -std=c11 -g -O2")
+set(CMAKE_C_FLAGS "-Wall -Wextra -D_GNU_SOURCE -g -O2")
 
 if (VARNISH_PLUS)
 	set(VMODTOOL "${VARNISH_DIR}/share/varnish-plus/vmodtool.py")
