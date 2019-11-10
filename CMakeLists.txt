@@ -3,7 +3,7 @@ project (all_vmods C)
 
 #set(VARNISH_VMOD_LIBRARY_MODE TRUE)
 add_subdirectory(encoding)
-#add_subdirectory(hashids)
+add_subdirectory(dns)
 #add_subdirectory(foo)
 
 enable_testing()
