@@ -38,7 +38,7 @@ like a possibility.
 ```
 git submodule add https://github.com/user/libvmod-foo foreign/user-foo
 
-mkdir -p foo/tests && cd foo
+mkdir foo && cd foo
 cp ../templates/* .
 # edit CMakeLists.txt to taste.
 
