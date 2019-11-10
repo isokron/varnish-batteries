@@ -1,0 +1,27 @@
+#!/bin/bash
+GITROOT=../../foreign/vs-modules/
+
+if [ ! -f "vmod_var.vcc" ]; then
+        test -f $GITROOT/src/vmod.vcc && ln -s $GITROOT/src/vmod.vcc vmod_var.vcc
+        test -f $GITROOT/src/vmod_var.vcc && ln -s $GITROOT/src/vmod_var.vcc
+fi
+
+
+test -f $GITROOT/src/vmod_var.h && ln -s $GITROOT/src/vmod_var.h
+
+echo -e "\n/* Automatically modified by import-source, manual changes may be lost. */\n\n" > vmod_var.c
+sed \
+	-e 's|#include "vmod_config.h"|#include "cache/cache.h"|g' \
+	-e 's|#include "vcc_if.h"|#include "vmod_var_if.h"|g' \
+	-e 's|#include "vcc_var_if.h"|#include "vmod_var_if.h"|g' \
+	$GITROOT/src/vmod_var.c >> vmod_var.c
+
+
+for vtcfile in `find $GITROOT/src/tests/var/ -name \*.vtc`; do
+	fn_new=$(basename $vtcfile)
+	mkdir -p tests
+	echo -e "\n/* Automatically modified by import-source, manual changes may be lost. */\n\n" > "tests/$fn_new"
+	sed \
+		-e 's|import var;|import var from "${topbuild}/lib/libvmod_var/.libs/";|' \
+		$vtcfile >> "tests/$(basename $vtcfile)"
+done
