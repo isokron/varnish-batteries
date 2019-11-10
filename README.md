@@ -1,12 +1,16 @@
 
-# Varnish Cache with batteries (vmods)
+# Varnish Cache with batteries
 
 This is a collection of extension modules aimed at extending
 Varnish Cache without spending too much work on deployment.
 
+Contents:
+* vmods you will need often. (cookie, var, header, etc)
+* Useful VCL snippets. (planned)
+* Extension scripts, like cronjobs for logging 5xx safely with log rotation (planned)
 
-Main platform to run on is Ubuntu LTS, currently 18.04/bionic.
-Main Varnish version is the latest LTS, currently 6.0.
+Main platform to run on is Ubuntu LTS. (currently 18.04/bionic)
+Main Varnish version is the latest LTS. (currently 6.0)
 
 
 ## Installation
@@ -16,7 +20,7 @@ You need cmake, varnish-dev and a compiler.
 ```
 cmake .
 make
-sudo make install
+sudo make install  # soon
 ```
 
 
