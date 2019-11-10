@@ -25,12 +25,9 @@ sudo make install
 
 ### Why cmake and not autotools?
 
-Cmake is working on Linux, FreeBSD and MacOS.
-
-It is a lot easier to work with, and seem fairly well thought out. For greatness
-it is very important to be able to master your tools, and with cmake that feels
-like a possibility.
-
+cmake works on the most common platforms, like Linux, FreeBSD and MacOS. It is a
+lot easier to work with than m4 and autotools, and gets the job done without
+extra effort.
 
 
 ## Adding another module
@@ -38,12 +35,14 @@ like a possibility.
 ```
 git submodule add https://github.com/user/libvmod-foo foreign/user-foo
 
-mkdir foo && cd foo
-cp ../templates/* .
+mkdir vmods/foo && cd vmods/foo
+cp ../_templates/* .
 # edit CMakeLists.txt to taste.
 
-# Either symlink sources from ../foreign/user-foo/, or use ./import-upstream if
+# Either symlink sources from ../../foreign/user-foo/, or use ./import-upstream if
 # modifications are needed.
 
-cd ..
+cd ../../
+# add to top-level CMakeLists.txt
+
 ```
