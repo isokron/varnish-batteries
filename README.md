@@ -39,10 +39,11 @@ like a possibility.
 git submodule add https://github.com/user/libvmod-foo foreign/user-foo
 
 mkdir -p foo/tests && cd foo
-# symlink sources into foo/
-
-cp ../template_CMakeLists.txt CMakeLists.txt
+cp ../templates/* .
 # edit CMakeLists.txt to taste.
+
+# Either symlink sources from ../foreign/user-foo/, or use ./import-upstream if
+# modifications are needed.
 
 cd ..
 ```
