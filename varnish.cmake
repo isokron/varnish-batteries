@@ -40,7 +40,6 @@ function(add_vmod LIBNAME VCCNAME comment)
 	)
 	# create VMOD shared object
 	add_library(${LIBNAME} SHARED ${ARGN} ${OUTFILES})
-	message(STATUS "Varnish include dir: ${VARNISH_INCLUDE_DIRS}")
 	target_include_directories(${LIBNAME} PUBLIC ${VINCLUDE})
 	target_include_directories(${LIBNAME} PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
 	target_link_libraries(${LIBNAME} varnishapi)
