@@ -5,6 +5,7 @@ project (all_vmods C)
 add_subdirectory(vmods/curl)
 add_subdirectory(vmods/digest)
 add_subdirectory(vmods/dns)
+add_subdirectory(vmods/header)
 #add_subdirectory(vmods/encoding)
 #add_subdirectory(foo)
 

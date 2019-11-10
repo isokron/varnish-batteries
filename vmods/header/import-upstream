@@ -1,0 +1,26 @@
+#!/bin/bash
+GITROOT=../../foreign/vs-modules/
+
+if [ ! -f "vmod_header.vcc" ]; then
+        test -f $GITROOT/src/vmod.vcc && ln -s $GITROOT/src/vmod.vcc vmod_header.vcc
+        test -f $GITROOT/src/vmod_header.vcc && ln -s $GITROOT/src/vmod_header.vcc
+fi
+
+test -f $GITROOT/src/vmod_header.h && ln -s $GITROOT/src/vmod_header.h
+
+echo -e "\n/* Automatically modified by import-source, manual changes may be lost. */\n\n" > vmod_header.c
+sed \
+	-e 's|#include "vmod_config.h"|#include "cache/cache.h"|g' \
+	-e 's|#include "vcc_if.h"|#include "vmod_header_if.h"|g' \
+	-e 's|#include "vcc_header_if.h"|#include "vmod_header_if.h"|g' \
+	$GITROOT/src/vmod_header.c >> vmod_header.c
+
+
+for vtcfile in `find $GITROOT/src/tests/header/ -name \*.vtc`; do
+	fn_new=$(basename $vtcfile)
+	mkdir -p tests
+	echo -e "\n/* Automatically modified by import-source, manual changes may be lost. */\n\n" > "tests/$fn_new"
+	sed \
+		-e 's|import header;|import header from "${topbuild}/lib/libvmod_header/.libs/";|' \
+		$vtcfile >> "tests/$(basename $vtcfile)"
+done
