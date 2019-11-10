@@ -1,0 +1,27 @@
+#!/bin/bash
+GITROOT=../../foreign/vs-modules/
+
+if [ ! -f "vmod_cookie.vcc" ]; then
+        test -f $GITROOT/src/vmod.vcc && ln -s $GITROOT/src/vmod.vcc vmod_cookie.vcc
+        test -f $GITROOT/src/vmod_cookie.vcc && ln -s $GITROOT/src/vmod_cookie.vcc
+fi
+
+
+test -f $GITROOT/src/vmod_cookie.h && ln -s $GITROOT/src/vmod_cookie.h
+
+echo -e "\n/* Automatically modified by import-source, manual changes may be lost. */\n\n" > vmod_cookie.c
+sed \
+	-e 's|#include "vmod_config.h"|#include "cache/cache.h"|g' \
+	-e 's|#include "vcc_if.h"|#include "vmod_cookie_if.h"|g' \
+	-e 's|#include "vcc_cookie_if.h"|#include "vmod_cookie_if.h"|g' \
+	$GITROOT/src/vmod_cookie.c >> vmod_cookie.c
+
+
+for vtcfile in `find $GITROOT/src/tests/cookie/ -name \*.vtc`; do
+	fn_new=$(basename $vtcfile)
+	mkdir -p tests
+	echo -e "\n/* Automatically modified by import-source, manual changes may be lost. */\n\n" > "tests/$fn_new"
+	sed \
+		-e 's|import cookie;|import cookie from "${topbuild}/lib/libvmod_cookie/.libs/";|' \
+		$vtcfile >> "tests/$(basename $vtcfile)"
+done
