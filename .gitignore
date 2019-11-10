@@ -1,0 +1,39 @@
+.deps/
+.libs/
+*.o
+*.la
+*.lo
+*~
+*.[1-9]
+*.gz
+Makefile
+config.h
+/configure
+ar-lib
+stamp-h1
+
+# vmodtool
+vcc_*_if.[ch]
+vmod_**_if.[ch]
+vmod_*.rst
+
+# docs
+! /docs/vmod_*.rst
+
+# test suite
+*.log
+*.trs
+test-driver
+
+# ax_code_coverage
+*.gcno
+*.gcda
+*.info
+lcov/
+
+
+automake_boilerplate.am
+CMakeCache.txt
+Testing/
+CMakeFiles/
+**.cmake

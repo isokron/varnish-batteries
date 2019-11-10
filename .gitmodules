@@ -1,0 +1,3 @@
+[submodule "schibsted-hashids"]
+	path = foreign/libvmod-hashids
+	url = https://github.com/schibsted/libvmod-hashids.git

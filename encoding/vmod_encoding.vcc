@@ -1,0 +1,31 @@
+#
+# Copyright Isokron AS (c) 2019
+#
+
+$Module encoding 3 Encoding VMOD
+
+DESCRIPTION
+===========
+
+This vmod adds simple and readable encoding (base64 and URL encoding) in
+Varnish VCL.
+
+Relevant:
+* https://www.ietf.org/rfc/rfc3986.txt - Uniform Resource Identifier (URI): Generic Syntax
+
+
+$Event event_function
+$Function STRING urlencode(STRING s)
+
+URLencode string `s` and return a string.
+
+$Function STRING urldecode(STRING s)
+
+$Function STRING b64encode(STRING s)
+
+TODO: STRING b64encode(STRING s, dialect=NOPAD_URL)
+
+$Function STRING b64decode(STRING s)
+
+TODO: STRING b64decode(STRING s, dialect=NOPAD_URL)
+
