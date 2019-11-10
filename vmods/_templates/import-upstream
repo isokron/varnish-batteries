@@ -7,10 +7,13 @@ if [ ! -f "vmod_foo.vcc" ]; then
 fi
 
 
+test -f $GITROOT/src/vmod_foo.h && ln -s $GITROOT/src/vmod_foo.h
+
 echo -e "\n/* Automatically modified by import-source, manual changes may be lost. */\n\n" > vmod_foo.c
 sed \
 	-e 's|#include "vmod_config.h"|#include "cache/cache.h"|g' \
 	-e 's|#include "vcc_if.h"|#include "vmod_foo_if.h"|g' \
+	-e 's|#include "vcc_foo_if.h"|#include "vmod_foo_if.h"|g' \
 	$GITROOT/src/vmod_foo.c >> vmod_foo.c
 
 
