@@ -1,0 +1,29 @@
+
+/* Automatically modified by import-source, manual changes may be lost. */
+
+
+varnishtest "Test header_remove"
+
+server s1 {
+	rxreq
+	expect req.http.foo == "bar"
+	expect req.http.foobar != "bar"
+	txresp
+} -start
+
+varnish v1 -vcl+backend {
+	import curl from "${topbuild}/lib/libvmod_curl/.libs/libvmod_curl.so";
+	sub vcl_recv {
+		curl.header_add("foobar: bar");
+		curl.header_add("foo: bar");
+		curl.header_add("foobar: bar");
+		curl.header_remove("foobar");
+		curl.get("http://${s1_addr}:${s1_port}");
+		return (synth(200));
+	}
+} -start
+
+client c1 {
+	txreq -url "/"
+	rxresp
+} -run

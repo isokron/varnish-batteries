@@ -1,0 +1,49 @@
+
+/* Automatically modified by import-source, manual changes may be lost. */
+
+
+varnishtest "Test data timeout"
+
+server s1 {
+	rxreq
+	delay 2
+	txresp -hdr "Foo: bar"
+} -start
+
+varnish v1 -vcl+backend {
+	import curl from "${topbuild}/lib/libvmod_curl/.libs/libvmod_curl.so";
+	import std;
+
+	sub vcl_recv {
+		curl.set_timeout(1000);
+		curl.set_connect_timeout(1000);
+		std.timestamp("curl:start");
+		curl.get("http://${s1_addr}:${s1_port}");
+		return (synth(200));
+	}
+
+	sub vcl_synth {
+		std.timestamp("curl:end");
+		set resp.http.x-status = curl.status();
+		set resp.http.x-error = curl.error();
+
+		# Fix for RHEL5 old curl lib
+		if (resp.http.x-error == "a timeout was reached") {
+			set resp.http.x-error = "Timeout was reached";
+		}
+	}
+} -start
+
+logexpect l1 -v v1 -g request {
+	expect * 1001	Timestamp	{curl:start: \S+ 0\.\d+ 0\.\d+}
+	expect * =	Timestamp	{curl:end: \S+ 1\.0\d+ 0\.\d+}
+} -start
+
+client c1 {
+	txreq
+	rxresp
+	expect resp.http.x-status == 0
+	expect resp.http.x-error == "Timeout was reached"
+} -run
+
+logexpect l1 -wait

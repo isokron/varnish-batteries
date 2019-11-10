@@ -1,0 +1,55 @@
+
+/* Automatically modified by import-source, manual changes may be lost. */
+
+
+varnishtest "Test set_debug"
+
+server s1 {
+	rxreq
+	expect req.bodylen == 7
+	txresp -body "foo"
+	accept
+	rxreq
+	expect req.bodylen == 7
+	txresp -body "foo"
+	accept
+	rxreq
+	expect req.bodylen == 8
+	txresp -body "bar"
+} -start
+
+varnish v1 -vcl+backend {
+	import curl from "${topbuild}/lib/libvmod_curl/.libs/libvmod_curl.so";
+
+	sub vcl_recv {
+		curl.set_debug(text);
+		curl.set_debug(header_in);
+		curl.set_debug(header_out);
+		curl.set_debug(data_in);
+		curl.set_debug(data_out);
+		curl.post("http://${s1_addr}:${s1_port}/", "foo=bar");
+		curl.set_debug(none);
+		curl.post("http://${s1_addr}:${s1_port}/", "foo=bar");
+		curl.set_debug(text);
+		curl.post("http://${s1_addr}:${s1_port}/", "baz=quux");
+		return (synth(curl.status()));
+	}
+} -start
+
+logexpect l1 -v v1 -g request {
+	expect * 1001	Debug	{text: .* ${s1_addr}}
+	expect * =	Debug	{header_out: POST}
+	expect * =	Debug	{data_out: foo=bar}
+	expect * =	Debug	{header_in: HTTP/1.1}
+	expect * =	Debug	{data_in: foo}
+	expect * =	Debug	{text: Connection}
+	expect * =	Debug	{data_out: baz=quux}
+	expect * =	Debug	{data_in: bar}
+} -start
+
+client c1 {
+	txreq
+	rxresp
+} -run
+
+logexpect l1 -wait

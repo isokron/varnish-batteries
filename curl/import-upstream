@@ -1,0 +1,36 @@
+#!/bin/bash
+GITROOT=../foreign/vs-curl
+
+echo -e "\n/* Automatically modified by import-source, manual changes may be lost. */\n\n" > vmod_curl.c
+sed \
+	-e 's|#include "vmod_config.h"|#include "cache/cache.h"|g' \
+	-e 's|#include "vcc_if.h"|#include "vmod_curl_if.h"|g' \
+	$GITROOT/src/vmod_curl.c >> vmod_curl.c
+
+
+## fix up vmod.vcc
+echo -e "\n/* Automatically modified by import-source, manual changes may be lost. */\n\n" > vmod_curl.vcc
+sed \
+	-e '/static void cm_clear/i\\nvoid free_func(void *p);\n' \
+	-e 's|# GET the URL in the first parameter||g' \
+	-e '/^$/d' \
+	$GITROOT/src/vmod_curl.vcc >> vmod_curl.vcc
+
+for vtcfile in `find $GITROOT/src/tests/ -name \*.vtc`; do
+	mkdir -p tests
+	fn_new=$(basename $vtcfile)
+
+	# Microsecond timing work fine on recent libcurl (issue on el5 and/or el6).
+	# Testing it is flaky with high make -j. Skip it and worry about more important things.
+	if [ "$fn_new" = "curl__test11.vtc" ]; then
+		continue
+	fi
+
+	echo -e "\n/* Automatically modified by import-source, manual changes may be lost. */\n\n" > "tests/$fn_new"
+	sed \
+		-e 's|import curl;|import curl from "${topbuild}/lib/libvmod_curl/.libs/";|' \
+		-e 's|from "${vmod_topbuild}/src/.libs|from "${topbuild}/lib/libvmod_curl/.libs|' \
+		$vtcfile >> "tests/$fn_new"
+done
+
+

@@ -1,0 +1,30 @@
+
+/* Automatically modified by import-source, manual changes may be lost. */
+
+
+varnishtest "Test set_method"
+
+server s1 {
+	rxreq
+	expect req.method == PURGE
+	txresp
+	accept
+	rxreq
+	expect req.method == HEAD
+	txresp
+} -start
+
+varnish v1 -vcl+backend {
+	import curl from "${topbuild}/lib/libvmod_curl/.libs/libvmod_curl.so";
+	sub vcl_recv {
+		curl.set_method("PURGE");
+		curl.head("http://${s1_addr}:${s1_port}");
+		curl.head("http://${s1_addr}:${s1_port}");
+		return (synth(200));
+	}
+} -start
+
+client c1 {
+	txreq -url "/"
+	rxresp
+} -run
