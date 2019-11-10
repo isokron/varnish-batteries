@@ -1,0 +1,25 @@
+#!/bin/bash
+GITROOT=../../foreign/vs-digest
+
+if [ ! -f "vmod_digest.vcc" ]; then
+	test -f $GITROOT/src/vmod.vcc && ln -s $GITROOT/src/vmod.vcc vmod_digest.vcc
+	test -f $GITROOT/src/vmod_digest.vcc && ln -s $GITROOT/src/vmod_digest.vcc
+fi
+
+echo -e "\n/* Automatically modified by import-source, manual changes may be lost. */\n\n" > vmod_digest.c
+echo -e "#define VERSION \"0.1\"\n" > vmod_digest.c
+sed \
+	-e 's|#include "vmod_config.h"|#include "cache/cache.h"|g' \
+	-e 's|#include "vcc_if.h"|#include "vmod_digest_if.h"|g' \
+	-e 's|u = WS_ReserveAll(ctx->ws);|u = WS_Reserve(ctx->ws, 0);|' \
+	$GITROOT/src/vmod_digest.c >> vmod_digest.c
+
+
+for vtcfile in `find $GITROOT/src/tests/ -name \*.vtc`; do
+	fn_new=$(basename $vtcfile)
+	mkdir -p tests
+	echo -e "\n/* Automatically modified by import-source, manual changes may be lost. */\n\n" > "tests/$fn_new"
+	sed \
+		-e 's|import digest;|import digest from "${topbuild}/lib/libvmod_digest/.libs/";|' \
+		$vtcfile >> "tests/$(basename $vtcfile)"
+done

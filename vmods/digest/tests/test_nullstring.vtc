@@ -1,0 +1,34 @@
+
+/* Automatically modified by import-source, manual changes may be lost. */
+
+
+varnishtest "Test digest vmod for nullstrings"
+
+# Blank keys should return NULL/"", while blank data should be treated as
+# an empty string (i.e. ""). We treat keys differently because there should
+# always be a key, and not having one is almost certainly a bug and should
+# be painfully visible.
+
+server s1 {
+       rxreq
+       txresp
+} -start
+
+varnish v1 -vcl+backend {
+	import digest from "${vmod_topbuild}/src/.libs/libvmod_digest.so";
+
+	sub vcl_deliver {
+		set resp.http.sha1 = digest.hash_sha1(resp.http.blank-header);
+		set resp.http.hmac_sha1 = "BUNNY";
+		set resp.http.hmac_sha1 = resp.http.hmac_sha1 + digest.hmac_sha1(resp.http.blank-header, "The quick brown fox jumps over the lazy dog");
+	}
+} -start
+
+client c1 {
+	txreq -url "/"
+	rxresp
+	expect resp.http.sha1 == "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+	expect resp.http.hmac_sha1 == "BUNNY"
+}
+
+client c1 -run
