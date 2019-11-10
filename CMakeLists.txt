@@ -8,6 +8,7 @@ add_subdirectory(vmods/digest)
 add_subdirectory(vmods/dns)
 add_subdirectory(vmods/header)
 add_subdirectory(vmods/var)
+add_subdirectory(vmods/xcounter)
 #add_subdirectory(vmods/encoding)
 #add_subdirectory(foo)
 
