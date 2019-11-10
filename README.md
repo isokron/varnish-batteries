@@ -20,7 +20,7 @@ You need cmake, varnish-dev and a compiler.
 ```
 cmake .
 make
-sudo make install  # soon
+sudo make install
 ```
 
 ## Packaging

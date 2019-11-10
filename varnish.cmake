@@ -15,6 +15,7 @@ else()
 	set(VMODTOOL "${VARNISH_DIR}/share/varnish/vmodtool.py")
 	set(VINCLUDE "${VARNISH_DIR}/include/varnish")
 	set(VLIBAPI  "${VARNISH_DIR}/lib/libvarnishapi.so")
+	set(VMODDIR  "${VARNISH_DIR}/lib/varnish/vmods/")
 endif()
 
 # enable make test
@@ -50,6 +51,8 @@ function(add_vmod LIBNAME VCCNAME comment)
 	set_target_properties(${LIBNAME}
     	PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 	)
+
+	install(TARGETS ${LIBNAME} LIBRARY DESTINATION "${VMODDIR}")
 endfunction()
 
 
