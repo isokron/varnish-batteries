@@ -1,6 +1,7 @@
 # settings
 option(VARNISH_PLUS "Build with Varnish plus" OFF)
-set(VARNISH_DIR "/opt/varnish" CACHE STRING "Varnish installation")
+#set(VARNISH_DIR "/opt/varnish" CACHE STRING "Varnish installation")
+set(VARNISH_DIR "/usr" CACHE STRING "Varnish installation")
 
 # compiler flags
 set(CMAKE_C_FLAGS "-Wall -Wextra -std=c11 -g -O2")

@@ -1,3 +1,21 @@
 [submodule "schibsted-hashids"]
 	path = foreign/libvmod-hashids
 	url = https://github.com/schibsted/libvmod-hashids.git
+[submodule "foreign/vs-curl"]
+	path = foreign/vs-curl
+	url = https://github.com/varnish/libvmod-curl.git
+[submodule "foreign/xcir-xcounter"]
+	path = foreign/xcir-xcounter
+	url = https://github.com/xcir/libvmod-xcounter.git
+[submodule "foreign/knq-dns"]
+	path = foreign/knq-dns
+	url = https://github.com/knq/libvmod-dns.git
+[submodule "foreign/uplex-re2"]
+	path = foreign/uplex-re2
+	url = https://code.uplex.de/uplex-varnish/libvmod-re2.git
+[submodule "foreign/vs-modules"]
+	path = foreign/vs-modules
+	url = https://github.com/varnish/varnish-modules.git
+[submodule "foreign/vs-digest"]
+	path = foreign/vs-digest
+	url = https://github.com/varnish/libvmod-digest.git
