@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 3.0.2)
 project (vmod C)
-include(../varnish.cmake vmod)
+include(../../varnish.cmake vmod)
 
 add_vmod(vmod_encoding vmod_encoding.vcc "encoding module for Varnish"
 	vmod_encoding.c

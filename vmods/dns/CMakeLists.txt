@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 3.0.2)
 project (vmod C)
-include(../varnish.cmake vmod)
+include(../../varnish.cmake vmod)
 
 set(CMAKE_C_FLAGS, "${CMAKE_C_FLAGS} -D_GNU_SOURCE")
 
