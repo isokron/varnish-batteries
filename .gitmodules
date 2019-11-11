@@ -19,3 +19,6 @@
 [submodule "foreign/vs-digest"]
 	path = foreign/vs-digest
 	url = https://github.com/varnish/libvmod-digest.git
+[submodule "foreign/gquintard-str"]
+	path = foreign/gquintard-str
+	url = https://github.com/gquintard/libvmod-str.git
