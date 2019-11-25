@@ -317,7 +317,7 @@ filter_cookies(struct vmod_priv *priv, VCL_STRING list_s,
 	struct vmod_cookie *vcp = cobj_get(priv);
 	struct matchlist *mlentry, *mlsafe;
 	char const *p = list_s, *q;
-	int matched = 0;
+	unsigned int matched = 0;
 
 	VTAILQ_HEAD(, matchlist) matchlist_head;
 	VTAILQ_INIT(&matchlist_head);
