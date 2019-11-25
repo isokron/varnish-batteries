@@ -1,7 +1,3 @@
-
-/* Automatically modified by import-source, manual changes may be lost. */
-
-
 /*-
  * Copyright (c) 2012-2016 Varnish Software
  *
@@ -32,7 +28,6 @@
  * Cookie VMOD that simplifies handling of the Cookie request header.
  */
 
-#define _GNU_SOURCE
 #include "config.h"
 #include <stdlib.h>
 #include <stdio.h>
