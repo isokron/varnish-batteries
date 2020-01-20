@@ -39,9 +39,8 @@ For anything that is imported verbatim (most vmods), you should file bugs upstre
 
 Look in `foreign/*/README.rst` and see if that helps you find the correct bug/issue tracker.
 
-If you don't get any traction there and you have business needs, Isokron AS who
-packaged this up is doing consulting and can help you out. Email
-<contact@isokron.no> and we'll be in touch.
+If you don't get any traction there and you have business needs, Isokron AS is offering consulting
+services and can help you out. Email <contact@isokron.no> and we'll be in touch.
 
 ### What the pull request policy?
 
