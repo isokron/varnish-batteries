@@ -1,0 +1,29 @@
+#!/bin/bash -x
+
+set -o errexit
+
+VERSION=${VERSION:-dev}
+ITERATION=${ITERATION:-1}
+
+FN=varnish-batteries_${VERSION}-${ITERATION}_amd64.deb
+
+test -d _build && rm -r _build
+mkdir -p _build/usr/lib/varnish/vmods/
+cp libvmod*.so _build/usr/lib/varnish/vmods/
+#
+
+rm ${FN} || :
+fpm -s dir -t deb \
+	--name varnish-batteries \
+	-m contact@isokron.no \
+	--architecture amd64 \
+	--url "https://github.com/isokron/varnish-batteries/" \
+	--license "GPL" \
+	--depends "varnish > 6.0" \
+	--vendor "Isokron AS" \
+	--version ${VERSION} \
+	--iteration ${ITERATION} \
+	--description "The batteries you need for Varnish Cache" \
+	-C _build
+dpkg -I ${FN}
+dpkg -c ${FN}
