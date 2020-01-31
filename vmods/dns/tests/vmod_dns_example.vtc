@@ -1,7 +1,3 @@
-
-/* Automatically modified by import-source, manual changes may be lost. */
-
-
 varnishtest "test vmod-dns example given in the documentation"
 
 varnish v1 -proto "PROXY" -vcl {

@@ -1,7 +1,3 @@
-
-/* Automatically modified by import-source, manual changes may be lost. */
-
-
 varnishtest "Test various hashes"
 
 # Test vectors borrowed from mhash2's test suite.

@@ -1,7 +1,3 @@
-
-/* Automatically modified by import-source, manual changes may be lost. */
-
-
 varnishtest "Header-vmod: Test substitution"
 
 server s1 {

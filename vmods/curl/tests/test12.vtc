@@ -1,7 +1,3 @@
-
-/* Automatically modified by import-source, manual changes may be lost. */
-
-
 varnishtest "Test the body() function behaviour via synthetic and via header assignment"
 
 server s1 {

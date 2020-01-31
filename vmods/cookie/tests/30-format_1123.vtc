@@ -1,7 +1,3 @@
-
-/* Automatically modified by import-source, manual changes may be lost. */
-
-
 varnishtest "Test rfc1123 string formatting function"
 
 server s1 {

@@ -1,7 +1,3 @@
-
-/* Automatically modified by import-source, manual changes may be lost. */
-
-
 varnishtest "take(), negative argument"
 # the "0 -x" is a trick to have the vcc parser accept negative numbers
 

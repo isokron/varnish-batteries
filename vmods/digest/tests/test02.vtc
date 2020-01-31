@@ -1,7 +1,3 @@
-
-/* Automatically modified by import-source, manual changes may be lost. */
-
-
 varnishtest "Test digest vmod out of workspace"
 
 server s1 { } -start

@@ -1,7 +1,3 @@
-
-/* Automatically modified by import-source, manual changes may be lost. */
-
-
 varnishtest "Test digest vmod for nullstrings"
 
 # Blank keys should return NULL/"", while blank data should be treated as

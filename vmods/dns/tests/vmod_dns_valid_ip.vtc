@@ -1,7 +1,3 @@
-
-/* Automatically modified by import-source, manual changes may be lost. */
-
-
 varnishtest "test vmod-dns valid with numeric address"
 
 server s1 {

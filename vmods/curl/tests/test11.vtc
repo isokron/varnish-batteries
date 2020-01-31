@@ -1,7 +1,3 @@
-
-/* Automatically modified by import-source, manual changes may be lost. */
-
-
 varnishtest "Test sub-second resolution timeouts"
 
 server s1 -repeat 2 {

@@ -1,7 +1,3 @@
-
-/* Automatically modified by import-source, manual changes may be lost. */
-
-
 # Got reports of no data being sent in return after 3.0.1, this test-case
 # tries to do some simple verification, though it fails to detect the
 # problem.

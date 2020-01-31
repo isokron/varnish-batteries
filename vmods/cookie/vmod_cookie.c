@@ -1,3 +1,7 @@
+
+/* Automatically modified by import-source, manual changes may be lost. */
+
+
 /*-
  * Copyright (c) 2012-2016 Varnish Software
  *

@@ -1,7 +1,3 @@
-
-/* Automatically modified by import-source, manual changes may be lost. */
-
-
 varnishtest "Test digest vmod"
 
 # Test vectors borrowed from wikipedia (which is in turn borrowed from

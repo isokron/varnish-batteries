@@ -1,8 +1,4 @@
 
-/* Automatically modified by import-source, manual changes may be lost. */
-
-
-
 # This assumes that:
 #  1. Append works
 #  2. The first header is the only tested in varnishtest when multiple

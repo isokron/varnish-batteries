@@ -1,8 +1,4 @@
 
-/* Automatically modified by import-source, manual changes may be lost. */
-
-
-
 varnishtest "Header-vmod: Test fetching"
 
 server s1 {
