@@ -2,7 +2,7 @@
 
 set -o errexit
 
-VERSION=${VERSION:-dev}
+VERSION=${VERSION:-0.1.0git1.$(date +"%Y%m%d%H%M")}
 ITERATION=${ITERATION:-1}
 
 FN=varnish-batteries_${VERSION}-${ITERATION}_amd64.deb
@@ -12,6 +12,12 @@ mkdir -p _build/usr/lib/varnish/vmods/
 cp libvmod*.so _build/usr/lib/varnish/vmods/
 #
 
+#apt show varnish| grep Provides
+BUILD_ABI_VER="varnishabi-8.0"
+# FIXME: Doesn't seem to be a way for fpm to add depends on
+# manually added Provides like varnishabi-8.0?
+
+
 rm ${FN} || :
 fpm -s dir -t deb \
 	--name varnish-batteries \
@@ -20,6 +26,8 @@ fpm -s dir -t deb \
 	--url "https://github.com/isokron/varnish-batteries/" \
 	--license "GPL" \
 	--depends "varnish > 6.0" \
+	--depends "libcurl4" \
+	--depends "libmhash2" \
 	--vendor "Isokron AS" \
 	--version ${VERSION} \
 	--iteration ${ITERATION} \
