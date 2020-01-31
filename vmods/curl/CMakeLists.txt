@@ -6,6 +6,8 @@ add_vmod(vmod_curl vmod_curl.vcc "curl module for Varnish"
 	vmod_curl.c
 )
 
+target_link_libraries(vmod_curl curl)
+
 # VCL import name is "curl"
 vmod_add_tests(vmod_curl curl
 	tests/01-test.vtc
