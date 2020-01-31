@@ -25,8 +25,6 @@ for vtcfile in `find $GITROOT/src/tests/ -name \*.vtc`; do
 	if [ "$fn_new" = "curl__test11.vtc" ]; then
 		continue
 	fi
-
-	echo -e "\n/* Automatically modified by import-source, manual changes may be lost. */\n\n" > "tests/$fn_new"
 	sed \
 		-e 's|import curl;|import curl from "${topbuild}/lib/libvmod_curl/.libs/";|' \
 		-e 's|from "${vmod_topbuild}/src/.libs|from "${topbuild}/lib/libvmod_curl/.libs|' \

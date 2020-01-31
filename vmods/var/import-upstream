@@ -20,7 +20,6 @@ sed \
 for vtcfile in `find $GITROOT/src/tests/var/ -name \*.vtc`; do
 	fn_new=$(basename $vtcfile)
 	mkdir -p tests
-	echo -e "\n/* Automatically modified by import-source, manual changes may be lost. */\n\n" > "tests/$fn_new"
 	sed \
 		-e 's|import var;|import var from "${topbuild}/lib/libvmod_var/.libs/";|' \
 		$vtcfile >> "tests/$(basename $vtcfile)"

@@ -17,8 +17,6 @@ for vtcfile in `find $GITROOT/src/vtc/ -name \*.vtc`; do
 	if [ "$fn_new" = "vmod_dns_valid_host_ip.vtc" ]; then
 		continue
 	fi
-
-	echo -e "\n/* Automatically modified by import-source, manual changes may be lost. */\n\n" > "tests/$fn_new"
 	sed \
 		-e 's|import dns;|import dns from "${topbuild}/lib/libvmod_dns/.libs/";|' \
 		$vtcfile >> "tests/$(basename $vtcfile)"
