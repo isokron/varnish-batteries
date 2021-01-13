@@ -48,7 +48,7 @@ function(add_vmod LIBNAME VCCNAME comment)
 	# you don't always want this, so it can probably be an option,
 	# but in most cases this will be the right thing to do
 	set_target_properties(${LIBNAME}
-    	PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+		PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/build"
 	)
 
 	install(TARGETS ${LIBNAME} LIBRARY DESTINATION "${VMODDIR}")

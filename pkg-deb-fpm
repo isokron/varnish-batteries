@@ -9,7 +9,7 @@ FN=varnish-batteries_${VERSION}-${ITERATION}_amd64.deb
 
 test -d _build && rm -r _build
 mkdir -p _build/usr/lib/varnish/vmods/
-cp libvmod*.so _build/usr/lib/varnish/vmods/
+cp build/libvmod*.so _build/usr/lib/varnish/vmods/
 #
 
 #apt show varnish| grep Provides
