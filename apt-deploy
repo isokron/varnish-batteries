@@ -1,0 +1,18 @@
+#!/bin/bash -x
+#
+# deb [trusted=yes] http://pkg.isokron.no/ubuntu bionic varnish60lts
+#
+# FIXME: some package signing would be nice.
+# FIXME: HTTPS would also be nice.
+
+set -o errexit
+SNAPNAME="snap-batteries60-$(date -Id)"
+
+aptly repo add batteries60 $1
+aptly publish update --skip-signing bionic raw
+
+aptly snapshot create $SNAPNAME from repo batteries60
+aptly publish drop bionic ubuntu
+aptly publish snapshot -component=varnish60lts -distribution=bionic -skip-signing $SNAPNAME ubuntu
+
+
