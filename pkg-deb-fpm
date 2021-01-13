@@ -21,7 +21,7 @@ BUILD_ABI_VER="varnishabi-8.0"
 rm ${FN} || :
 fpm -s dir -t deb \
 	--name varnish-batteries \
-	-m contact@isokron.no \
+	-m opensource@isokron.no \
 	--architecture amd64 \
 	--url "https://github.com/isokron/varnish-batteries/" \
 	--license "GPL" \
