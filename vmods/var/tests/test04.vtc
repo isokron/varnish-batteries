@@ -9,7 +9,7 @@ server s1 {
 } -start
 
 varnish v1 -vcl+backend {
-	import var from "${vmod_builddir}/.libs/libvmod_var.so";
+	import var from "${builddir}/libvmod_var.so";
 
 	sub vcl_recv {
 		var.set("foo", "bar");
@@ -27,7 +27,7 @@ client c1 {
 } -start
 
 varnish v1 -vcl+backend {
-	import var from "${vmod_builddir}/.libs/libvmod_var.so";
+	import var from "${builddir}/libvmod_var.so";
 
 	sub vcl_recv {
 		var.set("foo", "bar");
