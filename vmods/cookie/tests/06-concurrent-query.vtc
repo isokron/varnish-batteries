@@ -16,7 +16,7 @@ server s2 {
 } -start
 
 varnish v1 -vcl+backend {
-	import cookie from "${vmod_builddir}/.libs/libvmod_cookie.so";
+	import cookie from "${builddir}/libvmod_cookie.so";
 
 	sub vcl_recv {
 		cookie.parse(req.http.cookie);

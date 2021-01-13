@@ -9,7 +9,7 @@ server s1 {
 } -start
 
 varnish v1 -cliok "param.set workspace_client 64k" -vcl+backend {
-	import cookie from "${vmod_builddir}/.libs/libvmod_cookie.so";
+	import cookie from "${builddir}/libvmod_cookie.so";
 
 	sub vcl_deliver {
 		cookie.parse(req.http.cookie);
