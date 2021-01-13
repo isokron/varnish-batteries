@@ -6,7 +6,8 @@ server s1 -repeat 2 {
 } -start
 
 varnish v1 -arg "-p vcl_cooldown=1" -vcl+backend {
-	import ${vmod_xcounter};
+        import xcounter from "${builddir}/libvmod_xcounter.so";
+
 
 	sub vcl_init {
 		new xc = xcounter.vsc();
@@ -19,7 +20,7 @@ varnish v1 -arg "-p vcl_cooldown=1" -vcl+backend {
 } -start
 
 varnish v1 -vcl+backend {
-	import ${vmod_xcounter};
+        import xcounter from "${builddir}/libvmod_xcounter.so";
 
 	sub vcl_init {
 		new xc = xcounter.vsc();

@@ -8,7 +8,7 @@ server s1 -repeat 9 {
 } -start
 
 varnish v1 -vcl+backend {
-	import ${vmod_xcounter};
+        import xcounter from "${builddir}/libvmod_xcounter.so";
 
 	sub vcl_init {
 		new xc = xcounter.vsc();
