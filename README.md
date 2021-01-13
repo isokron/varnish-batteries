@@ -66,22 +66,6 @@ If it is trivial (no third party libs), has documentation and tests, the answer 
 likely yes.
 
 
-### Why cmake and not autotools?
-
-cmake works on the most common platforms, like Linux, FreeBSD and MacOS. It is a
-lot easier to work with than m4 and autotools, and gets the job done without
-extra effort.
-
-### Will you make tarballs for third party packaging?
-
-Most likely not.
-
-Tarballs is another thing to care for, and it suddenly opens a can of worms with
-signed hashes, gpg keys and a distribution site to make sure it is the original.
-
-Clone (or submodule) the git repo and you have all this without any extra work.
-
-
 ## Adding another module
 
 ```
