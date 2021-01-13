@@ -39,3 +39,4 @@ CMakeFiles/
 **.cmake
 #
 **.so
+*.deb
