@@ -11,7 +11,7 @@ server s1 {
 } -start
 
 varnish v1 -vcl+backend {
-	import digest from "${vmod_topbuild}/src/.libs/libvmod_digest.so";
+	import digest from "${builddir}/libvmod_digest.so";
 
 	sub vcl_deliver {
 		set resp.http.sha1 = digest.hash_sha1(resp.http.blank-header);

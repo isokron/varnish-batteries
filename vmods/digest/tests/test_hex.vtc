@@ -6,7 +6,7 @@ server s1 {
 } -start
 
 varnish v1 -vcl+backend {
-	import digest from "${vmod_topbuild}/src/.libs/libvmod_digest.so";
+	import digest from "${builddir}/libvmod_digest.so";
 
 	sub vcl_deliver {
 		set resp.http.hmac_sha1 = digest.hmac_sha1("secret", "test string");

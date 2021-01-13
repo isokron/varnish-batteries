@@ -15,7 +15,7 @@ server s1 {
 } -start
 
 varnish v1 -vcl+backend {
-	import digest from "${vmod_topbuild}/src/.libs/libvmod_digest.so";
+	import digest from "${builddir}/libvmod_digest.so";
 
 	sub vcl_deliver {
 		if (req.url == "/1") {		
