@@ -2,7 +2,7 @@
 
 set -o errexit
 
-VERSION=${VERSION:-0.1.0git1.$(date +"%Y%m%d%H%M")}
+VERSION=${VERSION:-$(date +"%Y%m%d")}
 ITERATION=${ITERATION:-1}
 
 FN=varnish-batteries_${VERSION}-${ITERATION}_amd64.deb
