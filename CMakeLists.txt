@@ -10,6 +10,7 @@ add_subdirectory(vmods/header)
 add_subdirectory(vmods/str)
 add_subdirectory(vmods/var)
 add_subdirectory(vmods/xcounter)
+add_subdirectory(vmods/vsthrottle)
 #add_subdirectory(vmods/encoding)
 #add_subdirectory(foo)
 
