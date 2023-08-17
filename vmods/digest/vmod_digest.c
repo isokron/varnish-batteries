@@ -77,7 +77,7 @@ enum alphabets {
 
 static struct e_alphabet {
 	char *b64;
-	char i64[256];
+	int8_t i64[256];
 	char padding;
 } alphabet[N_ALPHA];
 
@@ -138,14 +138,14 @@ static int
 base64_decode(struct e_alphabet *alpha, char *d, unsigned dlen, const char *s)
 {
 	unsigned u, v, l;
-	int i;
+	int8_t i;
 
 	u = 0;
 	l = 0;
 	while (*s) {
 		for (v = 0; v < 4; v++) {
 			if (*s)
-				i = alpha->i64[(int)*s++];
+				i = alpha->i64[(uint8_t)*s++];
 			else
 				i = 0;
 			if (i < 0)
@@ -155,7 +155,7 @@ base64_decode(struct e_alphabet *alpha, char *d, unsigned dlen, const char *s)
 		}
 		for (v = 0; v < 3; v++) {
 			if (l >= dlen - 1)
-				return (-1);
+				return (0);
 			*d = (u >> 16) & 0xff;
 			u <<= 8;
 			l++;
@@ -382,8 +382,20 @@ VPFX(base64_decode_generic)(VRT_CTX, enum alphabets a, const char *msg)
 		return (NULL);
 	}
 	p = ctx->ws->f;
-	u = base64_decode(&alphabet[a], p,u,msg);
-	WS_Release(ctx->ws,u);
+	u = base64_decode(&alphabet[a], p, u, msg);
+	if (u == 0) {
+		WS_Release(ctx->ws, 0);
+		VSLb(ctx->vsl, SLT_VCL_Error, "digest: Out of workspace");
+		return ("");
+	}
+
+	if (u < 0) {
+		WS_Release(ctx->ws, 0);
+		VSLb(ctx->vsl, SLT_VCL_Error,
+		    "digest: Base64 input contains invalid characters");
+		return ("");
+	}
+	WS_Release(ctx->ws, u);
 	return (p);
 }
 
